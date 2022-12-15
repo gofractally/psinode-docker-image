@@ -1,0 +1,5 @@
+#!/bin/bash
+
+supervisorctl stop psi:psinode
+rm -rf /root/psinode/psinode_db
+supervisorctl start psi:*
