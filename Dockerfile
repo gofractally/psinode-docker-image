@@ -36,5 +36,6 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Add some tools
 ADD scripts /root/psinode/scripts
 ENV PATH=/root/psinode/scripts:$PATH
+RUN chmod -R 0700 /root/psinode/scripts/
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
