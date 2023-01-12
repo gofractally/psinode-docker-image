@@ -16,10 +16,10 @@ RUN export DEBIAN_FRONTEND=noninteractive   \
 WORKDIR /root/deps
 
 # Psidk
-RUN wget https://github.com/gofractally/psibase/releases/download/rolling-release/psidk-linux.tar.gz \
-    && tar xf psidk-linux.tar.gz         \
-    && rm psidk-linux.tar.gz
-ENV PSIDK_PREFIX=/root/deps/psidk
+RUN wget https://github.com/gofractally/psibase/releases/download/rolling-release/psidk-ubuntu-2004.tar.gz \
+    && tar xf psidk-ubuntu-2004.tar.gz         \
+    && rm psidk-ubuntu-2004.tar.gz
+ENV PSIDK_PREFIX=/root/deps/psidk-ubuntu-2004
 ENV PATH=$PSIDK_PREFIX/bin:$PATH
 
 # Install deps
