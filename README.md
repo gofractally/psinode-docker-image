@@ -21,11 +21,4 @@ If the psinode process crashes or stops for any reason with an exit code other t
 
 # Updating
 
-To update the image when there's an update to the rolling release, the following commands must be run:
-
-```
-docker image build --no-cache -t jamesmart/psidekick:latest -t jamesmart/psidekick:VERSION .
-```
-```
-docker image push jamesmart/psidekick:latest && docker image push jamesmart/psidekick:VERSION
-```
+To update the image when there's an update to the rolling release, manually trigger the github action: `ubuntu-2004-builder-container` and it should pull in the latest version of the rolling release.
