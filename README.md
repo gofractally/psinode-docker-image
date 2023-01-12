@@ -22,3 +22,5 @@ If the psinode process crashes or stops for any reason with an exit code other t
 # Updating
 
 To update the image when there's an update to the rolling release, manually trigger the github action: `ubuntu-2004-builder-container` and it should pull in the latest version of the rolling release.
+
+After running the workflow, a new version of [Psidekick](https://github.com/gofractally/psidekick-docker-extension) can be built to run these new artifacts.
