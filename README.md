@@ -18,3 +18,14 @@ Scripts available to run within the psinode container are found in the `scripts/
 # Features
 
 If the psinode process crashes or stops for any reason with an exit code other than 0, the supervisor process running within this container will make up to 3 attempts to restart the process.
+
+# Updating
+
+To update the image when there's an update to the rolling release, the following commands must be run:
+
+```
+docker image build --no-cache -t jamesmart/psidekick:latest -t jamesmart/psidekick:VERSION .
+```
+```
+docker image push jamesmart/psidekick:latest && docker image push jamesmart/psidekick:VERSION
+```
