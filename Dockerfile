@@ -1,4 +1,8 @@
-FROM ubuntu:20.04
+# TODO - To save space in this docker image, consider adding the specific dependencies to this
+#        dockerfile that would be needed to run psinode/psibase. Then simply using ubuntu:20.04
+#        as the parent image, rather than pulling in the entire development environment.
+
+FROM ghcr.io/gofractally/psibase-ubuntu-2004-builder:latest
 
 RUN mkdir -p \
     /root/deps \
@@ -10,6 +14,7 @@ RUN export DEBIAN_FRONTEND=noninteractive   \
     && apt-get install -yq                  \
         curl                                \
         wget                                \
+        xz-utils                            \
     && apt-get clean -yq                    \
     && rm -rf /var/lib/apt/lists/*
 
