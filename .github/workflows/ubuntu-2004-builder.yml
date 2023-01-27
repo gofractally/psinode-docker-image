@@ -56,5 +56,6 @@ jobs:
         with:
           context: .
           push: true
+          no-cache: true
           file: Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
