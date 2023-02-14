@@ -11,11 +11,13 @@ on:
     paths:
       - "Dockerfile"
       - ".github/workflows/ubuntu-2004-builder.yml"
+      - "supervisord.conf"
   pull_request:
     types: [assigned, opened, synchronize, reopened, labeled]
     paths:
       - "Dockerfile"
       - ".github/workflows/ubuntu-2004-builder.yml"
+      - "supervisord.conf"
 
 jobs:
   ubuntu-2004-builder:
