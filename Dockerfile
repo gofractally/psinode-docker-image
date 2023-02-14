@@ -43,4 +43,10 @@ ADD scripts /root/psinode/scripts
 ENV PATH=/root/psinode/scripts:$PATH
 RUN chmod -R 0700 /root/psinode/scripts/
 
+LABEL org.opencontainers.image.title="Psinode_Ubuntu-20.04" \
+    org.opencontainers.image.description="This docker image uses supervisord to automatically manage a psinode process." \
+    org.opencontainers.image.vendor="Fractally LLC" \
+    org.opencontainers.image.url="https://github.com/gofractally/psinode-docker-image" \
+    org.opencontainers.image.documentation="https://doc-sys.psibase.io/psibase/index.html"
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
