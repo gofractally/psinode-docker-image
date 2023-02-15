@@ -20,8 +20,8 @@ WORKDIR /opt
 RUN wget https://github.com/gofractally/psibase/releases/download/rolling-release/psidk-ubuntu-2004.tar.gz \
     && tar xf psidk-ubuntu-2004.tar.gz         \
     && rm psidk-ubuntu-2004.tar.gz
-ENV PSIDK_PREFIX=/opt/psidk-ubuntu-2004
-ENV PATH=$PSIDK_PREFIX/bin:$PATH
+ENV PSIDK_HOME=/opt/psidk-ubuntu-2004
+ENV PATH=$PSIDK_HOME/bin:$PATH
 
 # Configure supervisor with psinode
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
