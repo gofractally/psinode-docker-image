@@ -4,44 +4,33 @@
 
 FROM ghcr.io/gofractally/psibase-ubuntu-2004-builder:latest
 
-RUN mkdir -p \
-    /root/deps \
-    /root/psinode
-
 # Install deps
 RUN export DEBIAN_FRONTEND=noninteractive   \
     && apt-get update                       \
     && apt-get install -yq                  \
-        curl                                \
+        supervisor                          \
         wget                                \
         xz-utils                            \
     && apt-get clean -yq                    \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root/deps
+WORKDIR /opt
 
 # Psidk
 RUN wget https://github.com/gofractally/psibase/releases/download/rolling-release/psidk-ubuntu-2004.tar.gz \
     && tar xf psidk-ubuntu-2004.tar.gz         \
     && rm psidk-ubuntu-2004.tar.gz
-ENV PSIDK_PREFIX=/root/deps/psidk-ubuntu-2004
+ENV PSIDK_PREFIX=/opt/psidk-ubuntu-2004
 ENV PATH=$PSIDK_PREFIX/bin:$PATH
-
-# Install deps
-RUN export DEBIAN_FRONTEND=noninteractive    \
-    && apt-get update                        \
-    && apt-get install -yq                   \
-        supervisor                           \
-    && apt-get clean -yq                     \
-    && rm -rf /var/lib/apt/lists/*
 
 # Configure supervisor with psinode
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN mkdir -p /root/psinode
 
 # Add some tools
-ADD scripts /root/psinode/scripts
-ENV PATH=/root/psinode/scripts:$PATH
-RUN chmod -R 0700 /root/psinode/scripts/
+ADD scripts /usr/local/bin/
+# TODO - remove below command if the executable bit isn't lost
+# RUN chmod -R 0700 /root/psinode/scripts/
 
 LABEL org.opencontainers.image.title="Psinode_Ubuntu-20.04" \
     org.opencontainers.image.description="This docker image uses supervisord to automatically manage a psinode process." \

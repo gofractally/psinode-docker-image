@@ -21,7 +21,7 @@ on:
 
 jobs:
   ubuntu-2004-builder:
-    name: psibase-ubuntu-2004-builder
+    name: psinode_image_builder
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
