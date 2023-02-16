@@ -29,8 +29,7 @@ RUN mkdir -p /root/psinode
 
 # Add some tools
 ADD scripts /usr/local/bin/
-# TODO - remove below command if the executable bit isn't lost
-# RUN chmod -R 0700 /root/psinode/scripts/
+RUN chmod -R 0700 /usr/local/bin/
 
 LABEL org.opencontainers.image.title="Psinode_Ubuntu-20.04" \
     org.opencontainers.image.description="This docker image uses supervisord to automatically manage a psinode process." \
