@@ -1,8 +1,22 @@
-# TODO - To save space in this docker image, consider adding the specific dependencies to this
-#        dockerfile that would be needed to run psinode/psibase. Then simply using ubuntu:20.04
-#        as the parent image, rather than pulling in the entire development environment.
-
 FROM ghcr.io/gofractally/psibase-ubuntu-2004-builder:latest
+
+# Remove unneeded items from the image to make it smaller
+RUN cd /opt && rm -rf                                   \
+        cargo                                           \
+        clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04 \
+        rustup                                          \
+        node-v16.17.0-linux-x64                         \
+        wasi-sdk-14.0                                   \
+    && cd /usr/local/bin && rm                          \
+        ccache                                          \
+    && rm /usr/local/lib/libboost*
+
+# Unset unused vars from the parent image
+ENV RUSTUP_HOME=     \
+    CARGO_HOME=      \
+    WASI_SDK_PREFIX= \
+    LD_LIBRARY_PATH= \
+    LLVM_CONFIG_PATH=
 
 # Install deps
 RUN export DEBIAN_FRONTEND=noninteractive   \
@@ -18,8 +32,10 @@ WORKDIR /opt
 
 # Psidk
 RUN wget https://github.com/gofractally/psibase/releases/download/rolling-release/psidk-ubuntu-2004.tar.gz \
-    && tar xf psidk-ubuntu-2004.tar.gz         \
-    && rm psidk-ubuntu-2004.tar.gz
+    && tar xf psidk-ubuntu-2004.tar.gz          \
+    && rm psidk-ubuntu-2004.tar.gz              \
+    && cd /opt/psidk-ubuntu-2004/bin            \
+    && rm psidk-cmake-args psitest
 ENV PSIDK_HOME=/opt/psidk-ubuntu-2004
 ENV PATH=$PSIDK_HOME/bin:$PATH
 
