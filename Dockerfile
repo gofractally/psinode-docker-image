@@ -32,11 +32,15 @@ RUN wget https://github.com/gofractally/psibase/releases/download/rolling-releas
 
 # Configure supervisor with psinode
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN mkdir -p /root/psinode
 
 # Add some tools
 ADD scripts /usr/local/bin/
 RUN chmod -R 0700 /usr/local/bin/
+
+# Add configuration files
+RUN mkdir -p /root/psinode/psinode_db
+ADD configs /root/psinode/
+COPY configs/dev.config /root/psinode/config
 
 # Squash layers
 FROM ubuntu:focal
