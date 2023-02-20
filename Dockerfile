@@ -1,5 +1,7 @@
 FROM ghcr.io/gofractally/psibase-ubuntu-2004-builder:latest as base
 
+ARG DEFAULT_PSINODE_CONFIG=dev.config
+
 # Remove unneeded items from the image
 RUN cd /opt && rm -rf                                   \
         cargo                                           \
@@ -40,7 +42,7 @@ RUN chmod -R 0700 /usr/local/bin/
 # Add configuration files
 RUN mkdir -p /root/psinode/psinode_db
 ADD configs /root/psinode/
-COPY configs/dev.config /root/psinode/config
+COPY configs/$DEFAULT_PSINODE_CONFIG /root/psinode/psinode_db/config
 
 # Squash layers
 FROM ubuntu:focal
